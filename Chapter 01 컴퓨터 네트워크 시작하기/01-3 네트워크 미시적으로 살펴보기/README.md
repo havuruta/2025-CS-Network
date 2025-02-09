@@ -6,6 +6,9 @@
 ## ❓ 확인 문제
 ### Q1. HTTP와 HTTPS는 어떤 프로토콜인지 작성하고 차이점을 설명해주세요.
 
+<details>
+<summary>접기/펼치기</summary>
+
 ### A. 웹브라우저와 웹서버간의 데이터를 주고받는 프로토콜로, SSL/TLS 암호화를 적용 유무에 따라서 구분된다.
 
 #### HTTP (HyperText Transfer Protocol)
@@ -19,6 +22,8 @@
 - 데이터를 암호화(Encryption)하여 전송 → 중간에서 가로채도 내용을 알 수 없음
 - 인증서(Certificate)를 통해 서버의 신뢰성을 검증 (예: VeriSign, Let's Encrypt)
 - 온라인 쇼핑, 금융 서비스, 로그인 등이 필요한 웹사이트에서 사용
+</details>
+
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
 1. ❓ 확인 문제 아래에 본인이 만든 질문을 추가하세요.  
