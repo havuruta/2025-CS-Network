@@ -152,8 +152,29 @@ ARP, DNS, NAT와 같은 것들은 변환기같은 기능을 하지만 TCP, HTTP,
 <summary>정답</summary>
 
 #### 4. 물리계층
+
 </details>
 
+### Q11. OSI 모델의 '네트워크 계층'에서 사용하는 프로토콜?
+
+<details>
+<summary>정답</summary>
+
+#### IP(Internet Protocol), + ICMP, ARP 등
+- IP(Internet Protocol) : 패킷 교환 네트워크에서 정보를 주고받는데 사용하는 정보 위주의 규약
+- ICMP(Internet Control Message Protocol) : TCP/IP에서 IP 패킷을 처리할 때 발생되는 문제 알림
+
+</details>
+
+### Q12. 헤더(및 트레일러)를 각 계층에서 확인한 뒤 제거하는 것?
+
+<details>
+<summary>정답</summary>
+
+#### 역캡슐화(decapsulation)
+- 캡슐화와 반대로 데이터 링크 계층부터 순서대로 상위 계층으로 전달(수신할 때)
+
+</details>
 
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
