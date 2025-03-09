@@ -101,6 +101,31 @@
 
 </details>
 
+### Q5. TCP에서 3-Way Handshake와 4-Way Handshake의 과정과 각각의 목적을 설명하시오.
+
+<details>
+<summary>정답</summary>
+
+1. **3-Way Handshake (TCP 연결 설정 과정)**
+
+* 목적: 신뢰성 있는 연결 수립(Connection Establishment)
+* 과정:<br>
+  1️⃣ SYN (Client → Server): 연결 요청<br>
+  2️⃣ SYN-ACK (Server → Client): 연결 요청 수락 및 응답<br>
+  3️⃣ ACK (Client → Server): 연결 완료<br>
+
+2. **4-Way Handshake (TCP 연결 해제 과정)**
+
+* 목적: 안전한 연결 종료(Connection Termination)
+* 과정:<br>
+  1️⃣ FIN (Client → Server): 연결 종료 요청<br>
+  2️⃣ ACK (Server → Client): 종료 요청 확인<br>
+  3️⃣ FIN (Server → Client): 서버도 연결 종료 요청<br>
+  4️⃣ ACK (Client → Server): 연결 해제 완료<br>
+---
+
+</details>
+
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
 1. ❓ 확인 문제 아래에 본인이 만든 질문을 추가하세요.  
