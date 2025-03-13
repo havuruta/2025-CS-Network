@@ -45,6 +45,46 @@ Base64 인코딩은 데이터를 변환할 뿐 암호화가 아님
 - 서버로 자동 전송되지 않으므로, **세션 토큰을 저장할 때 더 안전한 방법**이 될 수 있음.  
 
 </details>
+
+### Q2. 다음 중 HTTP 헤더와 기반 기술에 대한 설명으로 옳지 않은 것은 무엇인가요?
+
+1️. HTTP 요청(Request) 헤더에는 User-Agent, Accept, Authorization과 같은 정보가 포함될 수 있다.
+
+2️. HTTP 응답(Response) 헤더에는 Content-Type, Set-Cookie, Cache-Control 등의 정보가 포함될 수 있다.
+
+3️. 쿠키(Cookie)는 클라이언트의 상태 정보를 저장하며, Set-Cookie 헤더를 통해 서버가 쿠키를 설정할 수 있다.
+
+4. HTTP는 기본적으로 상태를 유지하는 프로토콜이므로, 별도의 기술 없이도 클라이언트와 서버 간 세션을 자동으로 유지할 수 있다.
+
+<details>
+<summary>정답</summary>
+
+**4. HTTP는 기본적으로 상태를 유지하는 프로토콜이므로, 별도의 기술 없이도 클라이언트와 서버 간 세션을 자동으로 유지할 수 있다. X**   
+  - HTTP는 기본적으로 상태를 유지하지 않는(stateless) 프로토콜이다.
+  - 클라이언트와 서버 간 세션을 유지하려면 쿠키(Cookie), 세션(Session), 토큰(Token) 등의 기술을 추가적으로 사용해야 한다.
+[해설]
+
+**[해설]**
+
+**1.HTTP 요청(Request) 헤더에는 User-Agent, Accept, Authorization과 같은 정보가 포함될 수 있다. O**   
+  - User-Agent: 클라이언트의 브라우저 및 OS 정보 제공
+  - Accept: 클라이언트가 받을 수 있는 콘텐츠 타입 명시
+  - Authorization: 인증 정보 전달 (예: Bearer 토큰)
+
+
+**2. HTTP 응답(Response) 헤더에는 Content-Type, Set-Cookie, Cache-Control 등의 정보가 포함될 수 있다. O**   
+  - Content-Type: 응답의 콘텐츠 타입 (예: text/html, application/json)
+  - Set-Cookie: 서버가 클라이언트에 쿠키를 설정하는 헤더
+  - Cache-Control: 캐시 정책 지정 (예: no-cache, max-age=3600)
+  
+
+**3. 쿠키(Cookie)는 클라이언트의 상태 정보를 저장하며, Set-Cookie 헤더를 통해 서버가 쿠키를 설정할 수 있다. O** 
+  - 쿠키는 세션 유지, 사용자 인증, 개인화 설정 등에 활용된다.
+  
+---
+
+</details> 
+
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
 1. ❓ 확인 문제 아래에 본인이 만든 질문을 추가하세요.  
