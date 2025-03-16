@@ -99,6 +99,19 @@ A사는 전 세계 사용자에게 안정적인 스트리밍 서비스를 제공
 
 </details>
 
+### Q4. https://github.com/havuruta/2025-CS-Network/tree/main/Chapter%2005%20%EC%9D%91%EC%9A%A9%20%EA%B3%84%EC%B8%B5/05-1%20DNS%EC%99%80%20%EC%9E%90%EC%9B%90
+### 위 링크는 현재 페이지를 가리키는 URI이다 각 부분을 올바르게 나누어라
+
+<details>
+	<summary>정답</summary>
+	- scheme: 자원에 접근하는 방법 -> 응용 계층의 https 프로토콜을 따르라고 명시한 https:// 부분
+	- authority: 호스트를 특정할 수 있는 정보 -> github.com
+	- path: 자원에 접근할 수 있는 정보
+		- havuruta: 해당 repo를 개설한 유저 id
+		- 2025-CS-Network: repo명
+		- tree/main: 브랜치 정보 -> main 브랜치
+		- Chapter%2005%20%EC%9D%91%EC%9A%A9%20%EA%B3%84%EC%B8%B5/05-1%20DNS%EC%99%80%20%EC%9E%90%EC%9B%90: 현재 열려있는 README.md 파일 경로
+</details>
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
 1. ❓ 확인 문제 아래에 본인이 만든 질문을 추가하세요.  
