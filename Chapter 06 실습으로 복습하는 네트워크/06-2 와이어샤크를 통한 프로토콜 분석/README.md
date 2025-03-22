@@ -83,6 +83,88 @@ Wireshark에서는 **자동으로 아래와 같이 줄여서 표시**한다: fe8
 
 </details>
 
+### Q3. ICMP 프로토콜은 주로 어떤 목적으로 사용되는지 설명하시오.
+
+<details>
+
+#### 정답 : 네트워크 상태 점검(도달 가능성 확인, 경로 추적, 오류 메시지 전달 등)
+
+<summary>정답</summary>
+
+**[해설]**
+
+#### ICMP의 주요 기능
+1) 도달 가능성 확인
+- ping 명령어는 ICMP의 **Echo Request (Type 8)**와 **Echo Reply (Type 0)**를 사용해 상대가 응답 가능한지 확인함.
+```sql
+No.   Time     Source        Destination   Protocol   Info
+1     0.000    192.168.0.2   8.8.8.8       ICMP       Echo (ping) request
+2     0.123    8.8.8.8       192.168.0.2   ICMP       Echo (ping) reply
+```
+2) 경로 추적
+- traceroute 명령은 TTL(Time to Live) 값을 1부터 점점 높여가며 라우터 하나씩 거치면서 ICMP Time Exceeded (Type 11) 메시지를 수신함.
+```sql
+No.   Time     Source        Destination   Protocol   Info
+1     0.000    192.168.0.2   8.8.8.8       ICMP       Echo (ping) request TTL=1
+2     0.045    10.1.1.1      192.168.0.2   ICMP       Time-to-live exceeded
+3     0.100    192.168.0.2   8.8.8.8       ICMP       Echo (ping) request TTL=2
+4     0.145    10.1.2.1      192.168.0.2   ICMP       Time-to-live exceeded
+
+```
+3) 오류 메시지 전달
+- 목적지에 도달할 수 없는 경우 ICMP Type 3 (Destination Unreachable) 메시지가 수신됨.
+```sql
+No.   Time     Source        Destination   Protocol   Info
+1     0.000    192.168.0.2   10.10.10.10   TCP        [SYN]
+2     0.150    10.10.10.1    192.168.0.2   ICMP       Destination unreachable (Port unreachable)
+
+```
+
+</details>
+
+### Q4. TCP와 UDP의 차이를 와이어샤크로 분석할 때 어떤 차이점이 있는지 설명하시오.
+
+
+<details>
+
+#### 정답
+- TCP는 연결 지향형 프로토콜로, 통신을 시작하기 전에 3-way 핸드셰이크(SYN, SYN-ACK, ACK)를 통해 연결을 설정함. 이 과정이 와이어샤크에서 순차적으로 보이며, 또한 TCP는 순서 번호, 확인 응답 번호, 재전송 등의 정보가 포함된 패킷이 다수 존재하며, 세션 흐름이 명확히 나타남.
+
+- 반면, UDP는 연결 설정 없이 데이터를 전송하며, 패킷 간 관계가 없어 단순히 요청/응답 패킷만 보임. 와이어샤크에서도 단순한 구조로 나타나고, 세션 추적이 어려움.
+
+<summary>정답</summary>
+
+**[해설]**
+
+#### 와이어샤크 패킷(TCP)
+```sql
+No.   Source        Destination   Protocol   Info
+1     192.168.0.2   93.184.216.34 TCP        SYN
+2     93.184.216.34 192.168.0.2   TCP        SYN, ACK
+3     192.168.0.2   93.184.216.34 TCP        ACK
+4     ...           ...           TCP        [PSH, ACK] HTTP GET
+
+```
+- 3-way handshake(SYN → SYN-ACK → ACK)
+
+- 이후에는 시퀀스 번호(seq), 응답 번호(ack), 재전송 표시(retransmission) 등 다양한 정보 확인 가능.
+
+#### 와이어샤크 패킷(UDP)
+```sql
+No.   Source        Destination   Protocol   Info
+1     192.168.0.2   8.8.8.8       UDP        Standard query 0x1234 A ssafy.com
+2     8.8.8.8       192.168.0.2   UDP        Standard query response A 93.184.216.34
+
+- 연결 없음, 단순히 요청(Request)과 응답(Response)만 존재
+
+- 시퀀스나 재전송 등의 정보 없음
+
+```
+- 3-way handshake(SYN → SYN-ACK → ACK)
+
+- 이후에는 시퀀스 번호(seq), 응답 번호(ack), 재전송 표시(retransmission) 등 다양한 정보 확인 가능.
+
+</details>
 
 
 ## 📝 사용법  
