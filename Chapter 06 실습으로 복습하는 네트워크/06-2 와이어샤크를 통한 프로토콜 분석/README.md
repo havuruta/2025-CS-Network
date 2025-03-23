@@ -167,6 +167,111 @@ No.   Source        Destination   Protocol   Info
 </details>
 
 
+### Q5. 제로 데이 패킷 분석
+
+> 제로 데이 공격이 발생한 후 수집된 `quiz02.pcapng` 패킷 덤프 파일이 있다.  
+> 네트워크 관리자는 다음과 같은 분석을 요청하였다.  
+> - 서버 IP: 141.157.228.12  
+> - 클라이언트 IP: 10.1.1.31  
+
+1. 어떤 응용 계층 프로토콜을 이용하여 파일이 전송되었는가?  
+2. 파일을 수신한 호스트의 IP 주소는 무엇인가?  
+3. 전송된 파일의 이름은 무엇인가?
+
+`TFTP` 필터로 검색하여 나온 데이터들을 요약한 내용이다.
+
+<details>
+<summary>패킷 정보 (Frame 6)</summary>
+
+```
+Frame 6: 62 bytes on wire (496 bits), 62 bytes captured (496 bits)  
+[Protocols in frame: eth:ethertype:ip:udp:tftp]
+
+Ethernet II:  
+- Source: NXPSemicondu_00:00:02  
+- Destination: Runtop_17:33:2e  
+- Type: IPv4 (0x0800)
+
+IP (Internet Protocol):  
+- Source IP: 10.1.1.31  
+- Destination IP: 141.157.228.12  
+- Protocol: UDP  
+- Source Port: 1028  
+- Destination Port: 69
+
+TFTP (Trivial File Transfer Protocol):  
+- Opcode: Read Request  
+- Source File: msblast.exe  
+- Transfer Type: octet
+```
+
+</details>
+
+> `TFTP`는 UDP 기반의 파일 전송 프로토콜로 인증 없이 파일을 전송한다.  
+> 이 프로토콜은 악성코드나 제로 데이 공격에 종종 사용되며, 파일을 빠르게 전송할 수 있다.
+
+<details>
+<summary>정답</summary>
+
+1. TFTP  
+2. 10.1.1.31  
+3. msblast.exe
+
+---
+
+### 요약
+
+- **TFTP**는 인증 없이 빠르게 파일을 전송하는 UDP 기반의 프로토콜로, 보안에 취약하다.  
+- 이 문제에서는 `msblast.exe`라는 악성 파일이 **클라이언트(10.1.1.31)**로 전송된 상황을 분석하고 있다.
+- 패킷 분석 시 다음을 확인할 수 있다:  
+  - **Source IP**는 파일을 요청한 클라이언트의 IP 주소  
+  - **Source File**은 요청된 파일의 이름
+
+---
+
+### 해설
+
+#### TFTP
+- TFTP는 UDP 기반의 단순한 파일 전송 프로토콜로, 인증이나 암호화 없이 파일을 전송하기 때문에 보안상 취약하다.  
+- 패킷의 `Protocols in frame` 항목에서 TFTP가 사용되고 있음을 확인할 수 있다.
+
+#### 10.1.1.31
+- TFTP에서 파일 전송은 클라이언트가 서버에 요청(Read Request)을 보내고, 서버가 파일을 전송하는 구조다.  
+- 이때 요청을 보낸 쪽(IP: 10.1.1.31)이 파일을 받게 되는 클라이언트다.
+
+#### msblast.exe
+- TFTP 요청에는 전송할 파일의 이름이 포함되며, `Source File: msblast.exe` 항목에서 이를 확인할 수 있다.  
+- 해당 파일은 악성코드이며, 네트워크 전파형 웜으로 알려져 있다.
+
+</details>
+
+### Q6. 위 사례처럼 인증 없이 파일이 전송되는 상황을 고려할 때, 서비스를 개발하거나 운영할 때 발생할 수 있는 보안 사고를 방지하기 위해 개발자가 적용할 수 있는 방법에는 어떤 것이 있나요?
+
+<details>
+<summary>정답</summary>
+
+- API 요청에는 반드시 인증을 요구하도록 설계한다.  
+  아무나 접근할 수 있는 엔드포인트는 공격에 쉽게 노출될 수 있다.
+
+- 이를 위한 대응 방법 중 하나로 **세션 기반 인증 방식**을 사용할 수 있다.  
+  예를 들어, 아래와 같이 세션을 확인하여 인증된 사용자만 데이터를 조회할 수 있도록 제한할 수 있다.
+
+```java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    HttpSession session = request.getSession(false); // 기존 세션 가져오기
+    
+    if (session != null && session.getAttribute("user") != null) {
+        response.getWriter().println("비공개 데이터입니다. 사용자: " + session.getAttribute("user"));
+    } else {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().println("로그인이 필요합니다.");
+    }
+}
+```
+
+</details>
+
+
 ## 📝 사용법  
 ### 이렇게 활용해 보세요! ✨  
 1. ❓ 확인 문제 아래에 본인이 만든 질문을 추가하세요.  
@@ -177,3 +282,4 @@ No.   Source        Destination   Protocol   Info
 2. 링크를 적용할 문장을 마우스로 선택합니다.  
 3. URL을 붙여넣습니다.  
 4. 마크다운 형식으로 `[내용](링크)` 형태로 정리됩니다.  
+
